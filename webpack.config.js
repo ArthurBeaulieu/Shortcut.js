@@ -1,7 +1,7 @@
 module.exports = env => {
   // Webpack clean and uglify plugins
   const path = require('path');
-  const TerserPlugin = require('terser-webpack-plugin');
+  //const TerserPlugin = require('terser-webpack-plugin');
   const { CleanWebpackPlugin } = require('clean-webpack-plugin');
   // Utils path
   const SRC = path.resolve(__dirname, '');
@@ -33,12 +33,13 @@ module.exports = env => {
     },
     optimization: {
       minimizer: [
-        new TerserPlugin({
+/*        new TerserPlugin({
+          test: /\.js$/i,          
           parallel: 4,
           terserOptions: {
             ecma: 5
           }
-        })
+        })*/
       ]
     }
   };
