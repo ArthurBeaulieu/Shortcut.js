@@ -26,7 +26,7 @@
     <div class="title">
         <h1><a href="index.html" class="link">Shortcut.js</a></h1>
         
-            <span class="version">v0.0.1</span>
+            <span class="version">v1.0.0</span>
         
     </div>
     <div class="search-container" id="search-container">
@@ -58,21 +58,69 @@
 
     <section>
         <article class="readme"><h1>Shortcut.js</h1>
-<p><img src="https://badgen.net/badge/version/0.0.1/blue" alt="">
-<a href="https://github.com/ArthurBeaulieu/Shortcut.js/blob/master/LICENSE.md"><img src="https://img.shields.io/github/license/ArthurBeaulieu/Shortcut.js.svg" alt="License"></a></p>
-<p><img src="https://badgen.net/badge/documentation/written/green" alt="">
+<p><img src="https://badgen.net/badge/version/1.0.0/blue" alt="">
+<a href="https://github.com/ArthurBeaulieu/Shortcut.js/blob/master/LICENSE.md"><img src="https://img.shields.io/github/license/ArthurBeaulieu/Shortcut.js.svg" alt="License"></a>
+<img src="https://badgen.net/badge/documentation/written/green" alt="">
 <img src="https://badgen.net/badge/test/passed/green" alt="">
 <img src="https://badgen.net/badge/dependencies/none/green" alt=""></p>
+<p><code>Shortcut.js</code> is a JavaScript ES6 component that offers a global keyboard event handler. This way one can declare and react to any combination of keys. It also offers several useful methods to manipulates those registered keyboard events.</p>
+<p>With ~5Ko minified, <code>Shortcut.js</code> is designed to be stable and remain as light as possible. It is meant to be used application wide so all your components can react to keyboard events.</p>
 <h1>Get Started</h1>
+<p>This repository was made to store documentation, test bench and source code. If you want to include this component in your project, you either need the src/Shortcut.js file if you have an assets bundler in your project, or use the dist/Shortcut.min.js to use the minified component. This minified file is compiled in ES5 JavaScript for compatibility reasons. The unminified file is, in the contrary, coded in ES6 JavaScript.</p>
+<p>Here's an example on how to create a custom event handler :</p>
+<pre class="prettyprint source lang-javascript"><code>/* Import the Js component */
+import Shortcut from 'src/Shortcut.js';
+/* Create a basic shortcut handler */
+const myShortcutHandler = new Shortcut();
+/* ...Or, you can provide several options to customize the handler */
+const myShortcutHandler = new Shortcut({
+  keyEvent: 'keydown', // 'keydown' or 'keyup' or 'keypressed'
+  autoRepeat: true // If key is kept pushed, do event have to repeat ?
+});
+</code></pre>
+<p>If you want to update the shortcut handler options, you can use <code>updateKeyEvent(string)</code> or <code>updateAutoRepeat(boolean)</code>. Refer to the <a href="https://arthurbeaulieu.github.io/Shortcut.js/doc/">documentation</a> for allowed values.</p>
+<p>The handler is now ready to register and react to keyboard events.</p>
+<h2>Manipulate a keyboard event</h2>
+<p>To register a keyboard event, you must call the <code>register</code> method and give it a string for the key to listen (case insensitive), and a callback to fire each time it is pressed.</p>
+<pre class="prettyprint source lang-javascript"><code>myShortcutHandler.register('F', () => {
+  alert('Pay respect');
+});
+</code></pre>
+<p>When declaring a multi key event, all modifiers must be placed before the actual key, meaning the actual key is the last character of the string (also case insensitive). The <code>+</code> char in the following example is used for clarity but is not mandatory. One can use the following modifiers : <code>ctrl</code>, <code>alt</code>, <code>shift</code>. There is no modifiers order to respect.</p>
+<pre class="prettyprint source lang-javascript"><code>myShortcutHandler.register('Ctrl+Alt+Shift+F', () => {
+  alert('Pay triple respect');
+});
+</code></pre>
+<p>You can also control those events to pause or resume them on demand.</p>
+<pre class="prettyprint source lang-javascript"><code>// Pause a keyboard event using its definition string
+myShortcutHandler.pause('F');
+myShortcutHandler.pause('Ctrl+Alt+Shift+F');
+// Resume it using its definition string
+myShortcutHandler.resume('F');
+myShortcutHandler.resume('Ctrl+Alt+Shift+F');
+// ...Or use the global pause/resume method
+myShortcutHandler.pauseAll();
+myShortcutHandler.resumeAll();
+</code></pre>
+<p>To remove the listener of this keyboard event, simply use the following methods.</p>
+<pre class="prettyprint source lang-javascript"><code>// Remove a keyboard event using its definition string
+myShortcutHandler.remove('Ctrl+Alt+Shift+F');
+// ...Or, remove all subscribed keyboard events
+myShortcutHandler.removeAll();
+</code></pre>
+<p>You're now good to go! If however you need more information, you can read the online <a href="https://arthurbeaulieu.github.io/Shortcut.js/doc/">documentation</a>.</p>
 <h1>Development</h1>
 <p>If you clone this repository, you can <code>npm install</code> to install development dependencies. This will allow you to build dist file, run the component tests or generate the documentation ;</p>
 <ul>
 <li><code>npm run build</code> to generate the minified file ;</li>
 <li><code>npm run dev</code> to watch for any change in source code ;</li>
+<li><code>npm run web-server</code> to launch a local development server ;</li>
 <li><code>npm run doc</code> to generate documentation ;</li>
-<li><code>npm run test</code> to perform all test at once ;</li>
+<li><code>npm run test</code> to perform all tests at once ;</li>
 <li><code>npm run testdev</code> to keep browsers open to debug tests ;</li>
+<li><code>npm run beforecommit</code> to perform tests, generate doc and bundle the JavaScript.</li>
 </ul>
+<p>To avoid CORS when locally loading the example HTML file, run the web server. Please do not use it on a production environment. Unit tests are performed on both Firefox and Chrome ; ensure you have both installed before running tests, otherwise they might fail.</p>
 <p>If you have any question or idea, feel free to DM or open an issue (or even a PR, who knows) ! I'll be glad to answer your request.</p></article>
     </section>
 

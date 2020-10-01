@@ -44,7 +44,7 @@ class Shortcut {
     this._multiKey = [];
     /** @public
      * @member {string} - Component version */
-    this.version = '0.0.2';
+    this.version = '1.0.0';
     // Save singleton scope for testShortcuts method to be able to properly remove event on demand
     this._testShortcuts = this._testShortcuts.bind(this);
     // Retun singleton to the caller

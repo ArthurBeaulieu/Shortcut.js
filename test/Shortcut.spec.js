@@ -26,7 +26,7 @@ describe('Shortcut unit test >', () => {
     expect(AppShortcut._autoRepeat).toEqual(true);
     expect(AppShortcut._singleKey).toEqual([]);
     expect(AppShortcut._multiKey).toEqual([]);
-    expect(AppShortcut.version).toEqual('0.0.2');
+    expect(AppShortcut.version).toEqual('1.0.0');
 
     done();
   });
@@ -783,34 +783,22 @@ describe('Shortcut unit test >', () => {
 
   it('Public method updateAutoRepeat', done => {
     AppShortcut = new Shortcut();
-
     expect(AppShortcut._autoRepeat).toEqual(true);
-
     AppShortcut.updateAutoRepeat(false);
-
     expect(AppShortcut._autoRepeat).toEqual(false);
-
     AppShortcut.updateAutoRepeat(true);
-
     expect(AppShortcut._autoRepeat).toEqual(true);
-
     done();
   });
 
 
   it('Public method updateAutoRepeat with wrong parameters', done => {
     AppShortcut = new Shortcut();
-
     expect(AppShortcut._autoRepeat).toEqual(true);
-
     AppShortcut.updateAutoRepeat();
-
     expect(AppShortcut._autoRepeat).toEqual(true);
-
     AppShortcut.updateAutoRepeat(() => {});
-
     expect(AppShortcut._autoRepeat).toEqual(true);
-
     done();
   });
 

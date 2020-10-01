@@ -1,8 +1,8 @@
 module.exports = config => {
   config.set({
-    basePath: './',
+    basePath: '../',
     singleRun: !config.dev, // Keep browser open in dev mode
-    browsers: ['Firefox', 'Chromium'],
+    browsers: ['Firefox', 'Chrome'],
     frameworks: ['jasmine'],
     client: {
       jasmine: {

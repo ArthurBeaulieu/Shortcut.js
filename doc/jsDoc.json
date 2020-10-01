@@ -14,7 +14,7 @@
   },
   "templates": {
     "name": "Shortcut.js",
-    "footerText": "Shortcut.js",
+    "footerText": "Shortcut.js - Version 1.0.0",
     "cleverLinks": false,
     "monospaceLinks": false
   },

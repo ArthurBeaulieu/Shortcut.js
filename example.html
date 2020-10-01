@@ -1,46 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Shortcut.js 0.0.2 - Demo</title>
-    <style>
-      html, body { align-items: center; display: flex; flex-direction: column; font-family: sans-serif; height: 100%; justify-content: center; margin: 0; width: 100%; }
-      html { width: 100%; }
-      body { text-align: center; width: 80%; }
-      button { border: solid 1px grey; border-radius: 5px; cursor: pointer; margin: 5px; padding: 5px 10px; }
-      button[disabled] { cursor: not-allowed; }
-    </style>
-  </head>
-  <body>
-    <a href="https://github.com/ArthurBeaulieu/Shortcut.js" target="_blank" style="position: absolute; right: 0; top: 0;"><img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621.png?resize=149%2C149" alt="Fork me on GitHub"></a>
-    <h1>Shortcut.js - Version 0.0.2</h1>
-    <h3></h3>
-    <h3></h3>
-    <button id="test1" type="button" name="button">Add A</button>
-    <button id="test" type="button" name="button">Remove A</button>
-  </body>
-  <script type="module"> // Need to disable cors to properly load module
+<head>
+  <meta charset="utf-8">
+  <meta content="ie=edge" http-equiv="x-ua-compatible">
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+  <meta content="initial-scale=1" name="viewport">
+  <meta name="description" content="Keyboard shortcut handler for JavaScript apps. KISS, light and library free. ">
+  <title>Shortcut.js 1.0.0 - Demo</title>
+  <style>
+    html, body { align-items: center; display: flex; flex-direction: column; font-family: sans-serif; height: 100%; justify-content: center; margin: 0; width: 100%; }
+    html { width: 100%; }
+    body { text-align: center; width: 80%; }
+    hr { color: white; width: 75%; }
+    button { border: solid 1px grey; border-radius: 5px; cursor: pointer; margin: 5px; padding: 5px 10px; }
+    button[disabled] { cursor: not-allowed; }
+    p { transition: opacity .1s ease-out; }
+  </style>
+</head>
+<body>
+  <a href="https://github.com/ArthurBeaulieu/Shortcut.js" target="_blank" style="position: absolute; right: 0; top: 0;"><img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621.png?resize=149%2C149" alt="Fork me on GitHub"></a>
+  <h1>Shortcut.js – Version 1.0.0</h1>
+  <hr>
+  <h3>Single key shortcut</h3>
+  <button id="single-register" type="button" name="button">Register A</button>
+  <button id="single-unregister" type="button" name="button">Unregister A</button>
+  <p id="single-feedback">I'll update when the shortcut is fired!</p>
+  <h3>Multi key shortcut</h3>
+  <button id="multi-register" type="button" name="button">Register Ctrl + X</button>
+  <button id="multi-unregister" type="button" name="button">Unregister Ctrl + X</button>
+  <p id="multi-feedback">I'll update when the shortcut is fired!</p>
+  <hr>
+  <p>
+    <a href="https://github.com/ArthurBeaulieu/Shortcut.js/releases" title="Releases" target="_blank" rel="noreferrer noopener"><img src="https://badgen.net/badge/version/1.0.0/blue" alt="version-badge"></a>
+    <a href="https://github.com/ArthurBeaulieu/Shortcut.js/blob/master/LICENSE" title="License" target="_blank" rel="noreferrer noopener"><img src="https://img.shields.io/github/license/ArthurBeaulieu/Shortcut.js.svg" alt="license-badge"></a>
+    <a href="doc/index.html" title="Documentation" target="_blank" rel="noreferrer noopener"><img src="https://badgen.net/badge/documentation/written/green" alt="documentation-badge"></a>
+    <img src="https://badgen.net/badge/test/passed/green" alt="test-badge" title="Run npm run test">
+    <img src="https://badgen.net/badge/dependencies/none/green" alt="dependencies-badge" title="Check package.json file">
+  </p>
+  <p style="font-size: .9rem; font-style: italic; margin: 0;">Arthur Beaulieu – October 2020</p>
+  <script type="module">
     import Shortcut from './src/Shortcut.js';
-// TODO remove packagelock from Logger/Custo
-    let c = function() {
-      console.log('Ctrl+Shift+B');
-    };
-
-    let d = function() {
-      console.log('A');
-    }
-
-    let a = new Shortcut({
-      autoRepeat: false
+    // Output text feedback
+    const sampleText = ['Fire in the hole!', 'I\'ve been changed!', 'Dammit, I\'ve changed again!', 'And another one change!', 'Aren\'t you tired to endlessly fire the shortcut?'];
+    // Create shortcut singleton
+    const ShortcuController = new Shortcut({
+      autoRepeat: true
     });
-  //  a.register('Ctrl+Shift+Alt+A', c);
-//    a.register('A', d);
-
-    document.getElementById('test').addEventListener('click', function() {
-      a.removeAll('a');
+    // Single shortcut manipulation
+    const registerSingle = document.getElementById('single-register');
+    const unregisterSingle = document.getElementById('single-unregister');
+    const feedbackSingle = document.getElementById('single-feedback');
+    // Init unregister button to disable
+    unregisterSingle.disabled = true;
+    // Register event ; change button disable state, update feedback and register shortcut event
+    registerSingle.addEventListener('click', () => {
+      registerSingle.blur(); // Must blur to give focus back on document
+      registerSingle.disabled = true;
+      unregisterSingle.disabled = false;
+      feedbackSingle.innerHTML = 'Shortcut registered! Now trigger it!';
+      ShortcuController.register('A', () => {
+        feedbackSingle.style.opacity = '0';
+        setTimeout(() => {
+          feedbackSingle.innerHTML = sampleText[Math.floor(Math.random() * Math.floor(sampleText.length))];
+          feedbackSingle.style.opacity = '1';
+        }, 150);
+      });
     });
-    document.getElementById('test1').addEventListener('click', function() {
-      a.register('ctrla', d);
+    // Unregister event ; change button disable state, update feedback and unregister event properly
+    unregisterSingle.addEventListener('click', () => {
+      unregisterSingle.blur(); // Must blur to give focus back on document
+      registerSingle.disabled = false;
+      unregisterSingle.disabled = true;
+      feedbackSingle.innerHTML = 'Shortcut unregistered! Register it again to see me change!';
+      ShortcuController.remove('A');
+    });
+    // Multi shortcut manipulation
+    const registerMulti = document.getElementById('multi-register');
+    const unregisterMulti = document.getElementById('multi-unregister');
+    const feedbackMulti = document.getElementById('multi-feedback');
+    // Init unregister button to disable
+    unregisterMulti.disabled = true;
+    // Register event ; change button disable state, update feedback and register shortcut event
+    registerMulti.addEventListener('click', () => {
+      registerMulti.blur(); // Must blur to give focus back on document
+      registerMulti.disabled = true;
+      unregisterMulti.disabled = false;
+      feedbackMulti.innerHTML = 'Shortcut registered! Now trigger it!';
+      ShortcuController.register('Ctrl+X', () => {
+        feedbackMulti.style.opacity = '0';
+        setTimeout(() => {
+          feedbackMulti.innerHTML = sampleText[Math.floor(Math.random() * Math.floor(sampleText.length))];
+          feedbackMulti.style.opacity = '1';
+        }, 150);
+      });
+    });
+    // Unregister event ; change button disable state, update feedback and unregister event properly
+    unregisterMulti.addEventListener('click', () => {
+      unregisterMulti.blur(); // Must blur to give focus back on document
+      registerMulti.disabled = false;
+      unregisterMulti.disabled = true;
+      feedbackMulti.innerHTML = 'Shortcut unregistered! Register it again to see me change!';
+      ShortcuController.remove('Ctrl+X');
     });
   </script>
+</body>
 </html>
