@@ -1,6 +1,6 @@
 # Shortcut.js
 
-![](https://badgen.net/badge/version/1.0.0/blue)
+![](https://badgen.net/badge/version/1.0.1/blue)
 [![License](https://img.shields.io/github/license/ArthurBeaulieu/Shortcut.js.svg)](https://github.com/ArthurBeaulieu/Shortcut.js/blob/master/LICENSE.md)
 ![](https://badgen.net/badge/documentation/written/green)
 ![](https://badgen.net/badge/test/passed/green)

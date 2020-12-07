@@ -28,7 +28,7 @@
     <div class="title">
         <h1><a href="index.html" class="link">Shortcut.js</a></h1>
         
-            <span class="version">v1.0.0</span>
+            <span class="version">v1.0.1</span>
         
     </div>
     <div class="search-container" id="search-container">
@@ -48,10 +48,7 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>'use strict';
-
-
-class Shortcut {
+            <pre class="prettyprint source linenums"><code>class Shortcut {
 
 
   /** @summary &lt;h1>JavaScript keyboard shortcut singleton to handle key strokes&lt;/h1>
@@ -68,7 +65,7 @@ class Shortcut {
    * @returns {object} - The Shortcut singleton instance */
   constructor(options = {}) {
     // If an instance of Shortcut already exists, we just return it
-    if (!!Shortcut.instance) {
+    if (!Shortcut.instance) {
       return Shortcut.instance;
     }
     // Set object instance
@@ -94,7 +91,7 @@ class Shortcut {
     this._multiKey = [];
     /** @public
      * @member {string} - Component version */
-    this.version = '1.0.0';
+    this.version = '1.0.1';
     // Save singleton scope for testShortcuts method to be able to properly remove event on demand
     this._testShortcuts = this._testShortcuts.bind(this);
     // Retun singleton to the caller
@@ -375,7 +372,7 @@ class Shortcut {
           shiftKey: /shift/i.test(keyString)
         },
         modifierCount: this._getModifiersCount(keyString),
-        key: keyString[keyString.length - 1].toLowerCase(),
+        key: keyString.toLowerCase().replace('ctrl', '').replace('alt', '').replace('maj', '').replace(' ', ''),
         paused: false,
         fire: fire
       };
@@ -538,7 +535,7 @@ export default Shortcut;
 
 <footer>
     <img class="logo" src="img/toast-ui.png" style="">
-    <div class="footer-text">Shortcut.js</div>
+    <div class="footer-text">Shortcut.js - Version 1.0.0</div>
 </footer>
 <script>prettyPrint();</script>
 <script src="scripts/jquery.min.js"></script>

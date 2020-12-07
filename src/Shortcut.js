@@ -1,6 +1,3 @@
-'use strict';
-
-
 class Shortcut {
 
 
@@ -18,7 +15,7 @@ class Shortcut {
    * @returns {object} - The Shortcut singleton instance */
   constructor(options = {}) {
     // If an instance of Shortcut already exists, we just return it
-    if (!!Shortcut.instance) {
+    if (!Shortcut.instance) {
       return Shortcut.instance;
     }
     // Set object instance
@@ -44,7 +41,7 @@ class Shortcut {
     this._multiKey = [];
     /** @public
      * @member {string} - Component version */
-    this.version = '1.0.0';
+    this.version = '1.0.1';
     // Save singleton scope for testShortcuts method to be able to properly remove event on demand
     this._testShortcuts = this._testShortcuts.bind(this);
     // Retun singleton to the caller
@@ -325,7 +322,7 @@ class Shortcut {
           shiftKey: /shift/i.test(keyString)
         },
         modifierCount: this._getModifiersCount(keyString),
-        key: keyString[keyString.length - 1].toLowerCase(),
+        key: keyString.toLowerCase().replace('ctrl', '').replace('alt', '').replace('maj', '').replace(' ', ''),
         paused: false,
         fire: fire
       };
