@@ -65,7 +65,7 @@
    * @returns {object} - The Shortcut singleton instance */
   constructor(options = {}) {
     // If an instance of Shortcut already exists, we just return it
-    if (!Shortcut.instance) {
+    if (Shortcut.instance) {
       return Shortcut.instance;
     }
     // Set object instance
@@ -372,7 +372,7 @@
           shiftKey: /shift/i.test(keyString)
         },
         modifierCount: this._getModifiersCount(keyString),
-        key: keyString.toLowerCase().replace('ctrl', '').replace('alt', '').replace('maj', '').replace(' ', ''),
+        key: keyString.toLowerCase().replace('ctrl', '').replace('alt', '').replace('maj', '').replace(' ', '').replace('+', ''),
         paused: false,
         fire: fire
       };

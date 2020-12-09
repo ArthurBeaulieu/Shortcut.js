@@ -15,7 +15,7 @@ class Shortcut {
    * @returns {object} - The Shortcut singleton instance */
   constructor(options = {}) {
     // If an instance of Shortcut already exists, we just return it
-    if (!Shortcut.instance) {
+    if (Shortcut.instance) {
       return Shortcut.instance;
     }
     // Set object instance
@@ -41,7 +41,7 @@ class Shortcut {
     this._multiKey = [];
     /** @public
      * @member {string} - Component version */
-    this.version = '1.0.1';
+    this.version = '1.0.2';
     // Save singleton scope for testShortcuts method to be able to properly remove event on demand
     this._testShortcuts = this._testShortcuts.bind(this);
     // Retun singleton to the caller

@@ -26,7 +26,7 @@ describe('Shortcut unit test >', () => {
     expect(AppShortcut._autoRepeat).toEqual(true);
     expect(AppShortcut._singleKey).toEqual([]);
     expect(AppShortcut._multiKey).toEqual([]);
-    expect(AppShortcut.version).toEqual('1.0.1');
+    expect(AppShortcut.version).toEqual('1.0.2');
 
     done();
   });
