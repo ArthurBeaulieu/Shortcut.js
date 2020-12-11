@@ -27,12 +27,18 @@ class Shortcut {
     if (typeof options.autoRepeat !== 'boolean') {
       options.autoRepeat = true;
     }
+    if (typeof options.noPrevention !== 'boolean') {
+      options.noPrevention = false;
+    }
     /** @private
      * @member {string} - Key event to use on keyboard event listener */
     this._keyEvent = options.keyEvent;
     /** @private
      * @member {boolean} - The auto repeat of an event when key is held on push */
     this._autoRepeat = options.autoRepeat;
+    /** @private
+     * @member {boolean} - Do not call prevent default on key event flag */
+    this._noPrevention = options.noPrevention;
     /** @private
      * @member {object[]} - Single key saved shortcuts */
     this._singleKey = [];
@@ -137,7 +143,10 @@ class Shortcut {
     for (let i = 0; i < this._singleKey.length; ++i) {
       // Check that event is active and flatten key string to compare
       if (!this._singleKey[i].pause && event.key.toLowerCase() === this._singleKey[i].key) {
-        event.preventDefault();
+        if (this._noPrevention === false) {
+          event.preventDefault();
+        }
+
         this._singleKey[i].fire(this);
       }
     }
@@ -164,7 +173,10 @@ class Shortcut {
             if ((sh.modifiers.ctrlKey && event.ctrlKey)
             || (sh.modifiers.altKey && event.altKey)
             || (sh.modifiers.shiftKey && event.shiftKey)) {
-              event.preventDefault();
+              if (this._noPrevention === false) {
+                event.preventDefault();
+              }
+
               sh.fire();
             }
             break;
@@ -172,7 +184,10 @@ class Shortcut {
             if ((sh.modifiers.ctrlKey && event.ctrlKey && sh.modifiers.altKey && event.altKey)
             || (sh.modifiers.ctrlKey && event.ctrlKey && sh.modifiers.shiftKey && event.shiftKey)
             || (sh.modifiers.altKey && event.altKey && sh.modifiers.shiftKey && event.shiftKey)) {
-              event.preventDefault();
+              if (this._noPrevention === false) {
+                event.preventDefault();
+              }
+
               sh.fire();
             }
             break;
@@ -180,7 +195,10 @@ class Shortcut {
             if ((sh.modifiers.ctrlKey && event.ctrlKey
             && sh.modifiers.altKey && event.altKey
             && sh.modifiers.shiftKey && event.shiftKey)) {
-              event.preventDefault();
+              if (this._noPrevention === false) {
+                event.preventDefault();
+              }
+
               sh.fire();
             }
             break;
