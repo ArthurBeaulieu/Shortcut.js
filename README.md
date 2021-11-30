@@ -1,6 +1,6 @@
 # Shortcut.js
 
-![](https://badgen.net/badge/version/1.0.2/blue)
+![](https://badgen.net/badge/version/1.0.3/blue)
 [![License](https://img.shields.io/github/license/ArthurBeaulieu/Shortcut.js.svg)](https://github.com/ArthurBeaulieu/Shortcut.js/blob/master/LICENSE.md)
 ![](https://badgen.net/badge/documentation/written/green)
 ![](https://badgen.net/badge/test/passed/green)
@@ -32,7 +32,7 @@ If you want to update the shortcut handler options, you can use `updateKeyEvent(
 
 The handler is now ready to register and react to keyboard events.
 
-## Manipulate a keyboard event
+## Register a keyboard event
 
 To register a keyboard event, you must call the `register` method and give it a string for the key to listen (case insensitive), and a callback to fire each time it is pressed.
 
@@ -49,6 +49,10 @@ myShortcutHandler.register('Ctrl+Alt+Shift+F', () => {
   alert('Pay triple respect');
 });
 ```
+
+If you want to register an event with a key that is neither a letter or a number, you must use the `event.key` value. For references, use the [MDN sandbox](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key#result) so you can find the `event.key` for your shortcut.
+
+## Manipulate a keyboard event
 
 You can also control those events to pause or resume them on demand.
 

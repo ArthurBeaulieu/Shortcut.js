@@ -28,7 +28,7 @@
     <div class="title">
         <h1><a href="index.html" class="link">Shortcut.js</a></h1>
         
-            <span class="version">v1.0.2</span>
+            <span class="version">v1.0.3</span>
         
     </div>
     <div class="search-container" id="search-container">
@@ -97,7 +97,7 @@
     this._multiKey = [];
     /** @public
      * @member {string} - Component version */
-    this.version = '1.0.2';
+    this.version = '1.0.3';
     // Save singleton scope for testShortcuts method to be able to properly remove event on demand
     this._testShortcuts = this._testShortcuts.bind(this);
     // Retun singleton to the caller
@@ -390,7 +390,7 @@
           shiftKey: /shift/i.test(keyString)
         },
         modifierCount: this._getModifiersCount(keyString),
-        key: keyString.toLowerCase().replace('ctrl', '').replace('alt', '').replace('maj', '').replace(' ', '').replace('+', ''),
+        key: keyString.toLowerCase().replace('ctrl', '').replace('alt', '').replace('shift', '').replaceAll(' ', '').replaceAll('+', ''),
         paused: false,
         fire: fire
       };

@@ -26,7 +26,7 @@
     <div class="title">
         <h1><a href="index.html" class="link">Shortcut.js</a></h1>
         
-            <span class="version">v1.0.2</span>
+            <span class="version">v1.0.3</span>
         
     </div>
     <div class="search-container" id="search-container">
@@ -58,7 +58,7 @@
 
     <section>
         <article class="readme"><h1>Shortcut.js</h1>
-<p><img src="https://badgen.net/badge/version/1.0.2/blue" alt="">
+<p><img src="https://badgen.net/badge/version/1.0.3/blue" alt="">
 <a href="https://github.com/ArthurBeaulieu/Shortcut.js/blob/master/LICENSE.md"><img src="https://img.shields.io/github/license/ArthurBeaulieu/Shortcut.js.svg" alt="License"></a>
 <img src="https://badgen.net/badge/documentation/written/green" alt="">
 <img src="https://badgen.net/badge/test/passed/green" alt="">
@@ -80,7 +80,7 @@ const myShortcutHandler = new Shortcut({
 </code></pre>
 <p>If you want to update the shortcut handler options, you can use <code>updateKeyEvent(string)</code> or <code>updateAutoRepeat(boolean)</code>. Refer to the <a href="https://arthurbeaulieu.github.io/Shortcut.js/doc/">documentation</a> for allowed values.</p>
 <p>The handler is now ready to register and react to keyboard events.</p>
-<h2>Manipulate a keyboard event</h2>
+<h2>Register a keyboard event</h2>
 <p>To register a keyboard event, you must call the <code>register</code> method and give it a string for the key to listen (case insensitive), and a callback to fire each time it is pressed.</p>
 <pre class="prettyprint source lang-javascript"><code>myShortcutHandler.register('F', () => {
   alert('Pay respect');
@@ -91,6 +91,8 @@ const myShortcutHandler = new Shortcut({
   alert('Pay triple respect');
 });
 </code></pre>
+<p>If you want to register an event with a key that is neither a letter or a number, you must use the <code>event.key</code> value. For references, use the <a href="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key#result">MDN sandbox</a> so you can find the <code>event.key</code> for your shortcut.</p>
+<h2>Manipulate a keyboard event</h2>
 <p>You can also control those events to pause or resume them on demand.</p>
 <pre class="prettyprint source lang-javascript"><code>// Pause a keyboard event using its definition string
 myShortcutHandler.pause('F');

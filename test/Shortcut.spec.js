@@ -20,13 +20,13 @@ describe('Shortcut unit test >', () => {
     // Component existence
     expect(AppShortcut).not.toEqual(undefined);
     expect(AppShortcut).not.toEqual(null);
-    expect(AppShortcut).toEqual(Shortcut.instance); // TODO report this on Logger and Custo
+    expect(AppShortcut).toEqual(Shortcut.instance);
     // Component proper construction
     expect(AppShortcut._keyEvent).toEqual('keydown');
     expect(AppShortcut._autoRepeat).toEqual(true);
     expect(AppShortcut._singleKey).toEqual([]);
     expect(AppShortcut._multiKey).toEqual([]);
-    expect(AppShortcut.version).toEqual('1.0.2');
+    expect(AppShortcut.version).toEqual('1.0.3');
 
     done();
   });
